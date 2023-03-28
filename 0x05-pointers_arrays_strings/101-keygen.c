@@ -20,7 +20,7 @@ for( i = 0; i < password_length; i++) {
     printf("*");
 }
 printf("\n");
-
+^
 int main() {
 int password_length;
 printf("\n\t*********************************\n\n");
