@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 /**
   * print_number - prints number with _putchar
   * @n: input number
