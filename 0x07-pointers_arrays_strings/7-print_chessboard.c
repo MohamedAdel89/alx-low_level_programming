@@ -1,15 +1,12 @@
 #include "main.h"
-
 /**
- * Return: return nothing
-*/
-
+ * print_chessboard
+ */
 void print_chessboard(char (*a)[8])
 {
-	int i, j;
+	int i;
+	int j;
 
-	i = 0;
-	j = 0;
 	while (i < 64)
 	{
 		if (i % 8 == 0 && i != 0)
