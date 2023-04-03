@@ -7,16 +7,12 @@ void print_chessboard(char (*a)[8])
 	int i;
 	int j;
 
-	while (i < 64)
+for (i = 0; i < 8; i++)
+{
+	for (j = 0; j < 8; j++)
 	{
-		if (i % 8 == 0 && i != 0)
-		{
-			j = i;
-			_putchar('\n');
-		}
-
-		_putchar(a[i / 8][i - j]);
-		i++;
+	_putchar(a[i][j]);
 	}
 	_putchar('\n');
+}
 }
