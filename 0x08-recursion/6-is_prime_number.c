@@ -1,17 +1,32 @@
 #include "main.h"
-int Try(int x, int y)
+/**
+  * prime - returns 1 if the input integer is a prime
+  * @n1: base number
+  * @n2: iteration
+  * Return: boolean
+**/
+int prime(int n1, int n2)
 {
-	if (y < 2 || y % x == 0)
-		return (0);
-	else if (x > y / 2)
-		return (1);
-	else
-		return (Try (x + 1, y));
+if (n2 == 1)
+return (1);
+if (n1 % n2 == 0)
+{
+return (0);
 }
-
-int prime_number(int n)
+return (prime(n1, n2 - 1));
+}
+/**
+* is_prime_number - returns 1 if the input integer is a prime
+* @n: number
+* Return: boolean
+*/
+int is_prime_number(int n)
 {
-	if (n == 2)
-		return (1);
-	return (Try(2, n));
+if (n < 0)
+return (0);
+if (n == 1)
+return (0);
+if (n == 2)
+return (1);
+return (prime(n, n - 1));
 }
