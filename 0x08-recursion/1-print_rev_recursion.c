@@ -1,7 +1,9 @@
 #include "main.h"
+
 /*description
- *for function _print_rev_recursion
- */
+*for function _print_rev_recursion
+*/
+
 void _print_rev_recursion(char *s)
 {
 if (*s != '\0')
