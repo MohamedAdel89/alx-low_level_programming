@@ -1,15 +1,11 @@
-#include <stdlib.h>
+#include "main.h"
 #include <stdio.h>
 
-int main(int argc, char __attribute__((unused)) *argv[])
+int main(int argc, char *argv[])
 {
-	int i = 0, m;
+	(void) argv;
 
-	while (i < argc)
-	{
-		m = i;
-		i++;
-	}
-	printf("%d\n", m);
+	printf("%d\n", argc - 1);
+
 	return (0);
 }
