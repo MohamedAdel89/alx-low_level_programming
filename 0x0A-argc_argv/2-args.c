@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-	int md;
+	int i;
 
-	for (md = 0; md < argc; i++)
-		printf("%s\n", argv[md]);
+	for (i = 0; i < argc; i++)
+		printf("%s\n", argv[i]);
 	return (0);
 }

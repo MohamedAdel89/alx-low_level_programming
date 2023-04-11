@@ -5,9 +5,9 @@
 
 int isNum(char num[])
 {
-	int md, l = strlen(num);
+	int i, l = strlen(num);
 
-	for (md = 0; md < l; i++)
+	for (i = 0; i < l; i++)
 	{
 		if (!isdigit(num[i]))
 			return (1);
@@ -18,7 +18,7 @@ int isNum(char num[])
 
 int main(int argc, char *argv[])
 {
-	int md, sum;
+	int i, sum;
 
 	if (argc == 1)
 	{
@@ -27,11 +27,11 @@ int main(int argc, char *argv[])
 	else
 	{
 		sum = 0;
-		for (md = 1; md < argc; md++)
+		for (i = 1; i < argc; i++)
 		{
-			if (isNum(argv[md]) == 0)
+			if (isNum(argv[i]) == 0)
 			{
-				sum += atoi(argv[md]);
+				sum += atoi(argv[i]);
 			}
 			else
 			{

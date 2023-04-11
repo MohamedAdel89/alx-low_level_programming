@@ -3,8 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	int cents, number_of_coins = 0;
-
+	int cents, coins_number = 0;
 
 	if (argc != 2)
 	{
@@ -29,6 +28,6 @@ int main(int argc, char *argv[])
 			coins_number += 1;
 		}
 	}
-	printf("%d\n", cnumber_of_coins);
+	printf("%d\n", coins_number);
 	return (0);
 }

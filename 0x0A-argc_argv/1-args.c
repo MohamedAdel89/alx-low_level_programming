@@ -3,13 +3,13 @@
 
 int main(int argc, char __attribute__((unused)) *argv[])
 {
-	int i = 0, md;
+	int i = 0, m;
 
 	while (i < argc)
 	{
-		md = i;
+		m = i;
 		i++;
 	}
-	printf("%d\n", md);
+	printf("%d\n", m);
 	return (0);
 }
