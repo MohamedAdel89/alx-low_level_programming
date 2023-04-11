@@ -5,7 +5,9 @@
 
 int main(int argc __attribute__((unused)), char *argv[])
 {
-	printf("%s\n", *argv);
+	int i = 0;
 
+	printf("%s\n", argv[i]);
 	return (0);
 }
+
