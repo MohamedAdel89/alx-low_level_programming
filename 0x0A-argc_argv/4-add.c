@@ -3,27 +3,56 @@
 #include <ctype.h>
 #include <string.h>
 
+/**
+ * check_num - check - string there are digit
+ * @str: array str
+ *
+ * Return: Always 0 (Success)
+ */
+
+int check_num(char *str)
+{
+	unsigned int c;
+
+	c = 0;
+	while (c < strlen(str))
+	{
+		if (!isdigit(str[c]))
+			return (0);
+		c++;
+	}
+	return (1);
+}
+
+/**
+ * main - Print the name of the program
+ * @argc: Count arguments
+ * @argv: Arguments
+ *
+ * Return: Always 0 (Success)
+ */
+
 int main(int argc, char *argv[])
 {
-	int total, i;
-	char *p;
-	int num;
+	int c;
+	int str_to_int;
+	int sum = 0;
 
-	total = 0;
-	if (argc > 1)
+	c = 1;
+	while (c < argc)
 	{
-		for (i = 1; argv[i]; i++)
+		if (check_num(argv[c]))
 		{
-			num = strtol(argv[i], &p, 10);
-			if (!*p)
-				total += num;
-			else
-			{
-				printf("Error\n");
-				return (1);
-			}
+			str_to_int = atoi(argv[c]);
+			sum += str_to_int;
 		}
+		else
+		{
+			printf("Error\n");
+			return (1);
+		}
+		c++;
 	}
-	printf("%d\n", total);
+	printf("%d\n", sum);
 	return (0);
 }
