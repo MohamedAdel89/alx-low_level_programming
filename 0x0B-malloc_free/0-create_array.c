@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
-
+/*D
+ *E
+ *S*/
 char *create_array(unsigned int size, char c)
 {
 	char *a;
