@@ -11,7 +11,7 @@
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *clone, *relloc;
-	unsigned int g;
+	unsigned int i;
 
 	if (ptr != NULL)
 	clone = ptr;
@@ -25,9 +25,9 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	relloc = malloc(new_size);
 	if (relloc == NULL)
 	return (0);
-	for (g = 0; g < (old_size || g < new_size); g++)
+	for (i = 0; i < (old_size || i < new_size); i++)
 	{
-		*(relloc + g) = clone[g];
+		*(relloc + i) = clone[i];
 	}
 	free(ptr);
 return (relloc);
