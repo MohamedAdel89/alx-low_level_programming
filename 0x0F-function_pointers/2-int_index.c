@@ -3,9 +3,9 @@
 
 /**
  *int_index - checks an integer
- *array: array to search
- *size: size of the array
- *cmp: function to call
+ *@array: array to search
+ *@size: size of the array
+ *@cmp: function to call
  *Return: index of the first element
  */
 
