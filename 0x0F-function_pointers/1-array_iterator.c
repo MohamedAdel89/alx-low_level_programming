@@ -3,9 +3,9 @@
 
 /**
  *array_iterator - executes a function given as a parameter on each element
- *array: pointer to the array
- *size: size of the array
- *action: function to execute
+ *@array: pointer to the array
+ *@size: size of the array
+ *@action: function to execute
  *Return: none
  */
 
