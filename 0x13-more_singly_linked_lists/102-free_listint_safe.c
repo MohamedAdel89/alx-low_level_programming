@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "lists.h"
 /**
  * free_list3 - frees a list
