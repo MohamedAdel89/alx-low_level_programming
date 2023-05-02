@@ -1,74 +1,36 @@
-#include <stdio.h>
 #include "lists.h"
-/**
- * free_list2 - frees a list
- * @head: head of the list
- */
-void free_list2(listint_addr *head)
-{
-	listint_addr *aux;
+#include <stdio.h>
 
-	aux = head;
-	while (head)
-	{
-		aux = head->next;
-		free(head);
-		head = aux;
-	}
-
-}
 /**
- * add_nodeaddr - adds new nodes to list
- * @head: address new head
- * @addr: address to store
- * Return: head
- */
-listint_addr *add_nodeaddr(listint_addr **head, const listint_t *addr)
-{
-	listint_addr *new_node;
-
-	new_node = malloc(sizeof(listint_addr));
-	if (new_node == NULL)
-	{
-		printf("Error\n");
-		free_list2(*head);
-		exit(98);
-	}
-	new_node->address = addr;
-	new_node->next = *head;
-	*head = new_node;
-	return (*head);
-}
-/**
- * print_listint_safe - prints lists with loops
- * @head: address pointer head
- * Return: number of nodes
+ * print_listint_safe - Print a `listint_t` linked list including mem addresses
+ * @head: head of linked list
+ * Description: Go through the list only once.
+ * Return: number of nodes in list. If fails, exit with status 98.
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t n = 0;
-	listint_addr *addrs, *aux;
+	const listint_t *current;
+	size_t count;
+	const listint_t *hold;
 
-	addrs = NULL;
-	while (head)
+	current = head;
+	if (current == NULL)
+		exit(98);
+
+	count = 0;
+	while (current != NULL)
 	{
-		aux = addrs;
-		while (addrs)
+		hold = current;
+		current = current->next;
+		count++;
+		printf("[%p] %d\n", (void *)hold, hold->n);
+
+		if (hold < current)
 		{
-			if (addrs->address == head)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_list2(aux);
-				return (n);
-			}
-			addrs = addrs->next;
+			printf("-> [%p] %d\n", (void *)current, current->n);
+			break;
 		}
-		printf("[%p] %d\n", (void *)head, head->n);
-		addrs = aux;
-		add_nodeaddr(&addrs, head);
-		head = head->next;
-		n++;
 	}
-free_list2(addrs);
-return (n);
+
+	return (count);
 }
