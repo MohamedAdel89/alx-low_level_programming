@@ -3,6 +3,7 @@
 /**
  *clear_bit - clear the value of a bit to 1 at a given index
  *@n: pointer to the long int number (8 bytes)
+ *@index: index of the bit to be cleared
  *Return: 1 if it worked -1 if an error ocurred.
  */
 
