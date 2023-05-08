@@ -1,127 +1,85 @@
 #include "main.h"
-/**
-  * print_entry - class
-  * @content: input char
-  * Return: no return
-**/
-void print_entry(char content[])
-{
-(void) content;
-printf("  Entry point address:               0x400600\n");
-}
-/**
-  * print_type - class
-  * @content: input char
-  * Return: no return
-**/
-void print_type(char content[])
-{
-(void) content;
-printf("  Type:                              EXEC (Executable file)\n");
-}
-/**
-  * print_abiversion - class
-  * @content: input char
-  * Return: no return
-**/
-void print_abiversion(char content[])
-{
-(void) content;
-printf("  ABI Version:                       0\n");
-}
-/**
-  * print_os - class
-  * @content: input char
-  * Return: no return
-**/
-void print_os(char content[])
-{
-(void) content;
-printf("  OS/ABI:                            UNIX - System V\n");
-}
-/**
-  * print_version - class
-  * @content: input char
-  * Return: no return
-**/
-void print_version(char content[])
-{
-(void) content;
-printf("  Version:                           1 (current)\n");
-}
-/**
-  * print_data - class
-  * @content: input char
-  * Return: no return
-**/
-void print_data(char content[])
-{
-if ((content[17] - '\0') == 1)
-printf("  Data:                              2's complement, little endian\n");
-else
-printf("  Data:                              2's complement, little endian\n");
-}
-/**
-  * print_class - class
-  * @content: input char
-  * Return: no return
-**/
-void print_class(char content[])
-{
-	if ((content[16] - '\0') == 1)
-	printf("  Class:                             ELF32\n");
-	else
-	printf("  Class:                             ELF64\n");
-}
-/**
-  * print_magic - magic
-  * @content: input char
-  * Return: no return
-**/
-void print_magic(char content[])
-{
-	int i;
-
-	printf("  Magic:   ");
-	for (i = 0; i < 16; i++)
-	{
-	printf("%02x ", content[i]);
-	}
-	printf("\n");
-}
-/**
- * main - copies the content of a file to another file.
- * @ac: number of arguments
- * @av: array of arguments
- * Return: Always 0.
- */
-int main(int ac, char **av)
-{
-	int file_elf;
-	ssize_t  l_read;
-	char content[64];
-
-	if (ac != 2)
-	{ write(STDERR_FILENO, "Usage: elf_header ELF_file\n", 27);
-		exit(98); }
-	file_elf = open(av[1], O_RDONLY);
-	if (file_elf == -1)
-	{ write(STDERR_FILENO, "Error: Can't read file\n", 23),
-		exit(98); }
-	l_read = read(file_elf, content, 64);
-	if (l_read == -1)
-	{ write(STDERR_FILENO, "Error: Can't read file\n", 23);
-		exit(98); }
-	if ((content[0] - '\0') != 127)
-	{ write(STDERR_FILENO, "Error: It is not a ELF file\n", 28);
-		exit(98); }
-	print_magic(content);
-	print_class(content);
-	print_data(content);
-	print_version(content);
-	print_os(content);
-	print_abiversion(content);
-	print_type(content);
-	print_entry(content);
-	return (0);
-}
+void print_elf_header(const char* elf_filename) {
+    int fd = open(elf_filename, O_RDONLY);
+    if (fd == -1) {
+        fprintf(stderr, "Failed to open file: %s (%s)\n", elf_filename, strerror(errno));
+        exit(98);
+    }
+    
+    Elf64_Ehdr elf_header;
+    if (read(fd, &elf_header, sizeof(elf_header)) != sizeof(elf_header)) {
+        fprintf(stderr, "Failed to read ELF header: %s (%s)\n", elf_filename, strerror(errno));
+        close(fd);
+        exit(98);
+    }
+    
+    if (memcmp(elf_header.e_ident, "\177ELF", 4) != 0) {
+        fprintf(stderr, "Not an ELF file: %s\n", elf_filename);
+        close(fd);
+        exit(98);
+    }
+    
+    printf("Magic:   ");
+    for (int i = 0; i < EI_NIDENT; i++) {
+        printf("%02x ", elf_header.e_ident[i]);
+    }
+    printf("\n");
+    
+    printf("Class:                             ");
+    switch (elf_header.e_ident[EI_CLASS]) {
+        case ELFCLASS32:
+            printf("ELF32\n");
+            break;
+        case ELFCLASS64:
+            printf("ELF64\n");
+            break;
+        default:
+            printf("Invalid class\n");
+            break;
+    }
+    
+    printf("Data:                              ");
+    switch (elf_header.e_ident[EI_DATA]) {
+        case ELFDATA2LSB:
+            printf("2's complement, little endian\n");
+            break;
+        case ELFDATA2MSB:
+            printf("2's complement, big endian\n");
+            break;
+        default:
+            printf("Invalid data encoding\n");
+            break;
+    }
+    
+    printf("Version:                           %d\n", elf_header.e_ident[EI_VERSION]);
+    
+    printf("OS/ABI:                            ");
+    switch (elf_header.e_ident[EI_OSABI]) {
+        case ELFOSABI_SYSV:
+            printf("UNIX - System V\n");
+            break;
+        case ELFOSABI_HPUX:
+            printf("HP-UX\n");
+            break;
+        case ELFOSABI_NETBSD:
+            printf("NetBSD\n");
+            break;
+        case ELFOSABI_LINUX:
+            printf("Linux\n");
+            break;
+        case ELFOSABI_SOLARIS:
+            printf("Solaris\n");
+            break;
+        case ELFOSABI_IRIX:
+            printf("IRIX\n");
+            break;
+        case ELFOSABI_FREEBSD:
+            printf("FreeBSD\n");
+            break;
+        case ELFOSABI_OPENBSD:
+            printf("OpenBSD\n");
+            break;
+        default:
+            printf("Unknown\n");
+            break;
+    }
